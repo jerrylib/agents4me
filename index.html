@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>agency-agents-zh 角色清单</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); min-height: 100vh; color: #fff; padding: 20px; }
+        .container { max-width: 1400px; margin: 0 auto; }
+        header { text-align: center; padding: 40px 0; margin-bottom: 30px; }
+        h1 { font-size: 2.5rem; background: linear-gradient(90deg, #00d9ff, #00ff88); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 10px; }
+        .subtitle { color: #8892b0; font-size: 1rem; }
+        .stats { display: flex; justify-content: center; gap: 30px; margin-top: 20px; flex-wrap: wrap; }
+        .stat-item { background: rgba(255,255,255,0.05); padding: 15px 25px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); }
+        .stat-number { font-size: 1.8rem; font-weight: bold; color: #00d9ff; }
+        .stat-label { font-size: 0.85rem; color: #8892b0; }
+        .category-nav { position: sticky; top: 20px; z-index: 100; background: rgba(26, 26, 46, 0.95); backdrop-filter: blur(10px); padding: 15px 20px; border-radius: 12px; margin-bottom: 30px; border: 1px solid rgba(255,255,255,0.1); display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+        .category-nav a { color: #8892b0; text-decoration: none; padding: 8px 16px; border-radius: 20px; font-size: 0.9rem; transition: all 0.3s ease; border: 1px solid transparent; }
+        .category-nav a:hover { background: rgba(0, 217, 255, 0.1); color: #00d9ff; border-color: rgba(0, 217, 255, 0.3); }
+        .search-box { margin-bottom: 30px; }
+        .search-box input { width: 100%; max-width: 500px; display: block; margin: 0 auto; padding: 15px 25px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: #fff; font-size: 1rem; outline: none; transition: all 0.3s ease; }
+        .search-box input:focus { border-color: #00d9ff; box-shadow: 0 0 20px rgba(0, 217, 255, 0.2); }
+        .search-box input::placeholder { color: #8892b0; }
+        .category { margin-bottom: 40px; }
+        .category-title { font-size: 1.5rem; padding: 15px 0; margin-bottom: 20px; border-bottom: 2px solid; display: flex; align-items: center; gap: 10px; }
+        .category-title .icon { font-size: 1.8rem; }
+        .table-wrapper { overflow-x: auto; border-radius: 12px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); }
+        table { width: 100%; border-collapse: collapse; min-width: 600px; }
+        th { background: rgba(255,255,255,0.05); padding: 15px 20px; text-align: left; font-weight: 600; color: #8892b0; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        td { padding: 15px 20px; border-top: 1px solid rgba(255,255,255,0.05); vertical-align: top; }
+        tr:hover { background: rgba(255,255,255,0.02); }
+        .filename { font-family: 'Monaco', 'Menlo', 'Consolas', monospace; background: rgba(0, 217, 255, 0.1); color: #00d9ff; padding: 6px 12px; border-radius: 6px; cursor: pointer; transition: all 0.2s ease; border: 1px solid rgba(0, 217, 255, 0.2); display: inline-block; font-size: 0.9rem; }
+        .filename:hover { background: rgba(0, 217, 255, 0.2); border-color: #00d9ff; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0, 217, 255, 0.3); }
+        .filename.copied { background: rgba(0, 255, 136, 0.2); border-color: #00ff88; color: #00ff88; }
+        .role-name { font-weight: 600; color: #fff; font-size: 1rem; }
+        .skills { color: #a0aec0; font-size: 0.9rem; line-height: 1.5; }
+        .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px); background: rgba(0, 255, 136, 0.9); color: #000; padding: 12px 30px; border-radius: 30px; font-weight: 600; opacity: 0; transition: all 0.3s ease; z-index: 1000; }
+        .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+        footer { text-align: center; padding: 40px 0; color: #8892b0; font-size: 0.9rem; }
+        @media (max-width: 768px) { h1 { font-size: 1.8rem; } .stats { gap: 15px; } .stat-item { padding: 10px 15px; } .category-nav { padding: 10px; } .category-nav a { padding: 6px 12px; font-size: 0.8rem; } th, td { padding: 12px 15px; } }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🤖 agency-agents-zh</h1>
+            <p class="subtitle">AI Agent 角色定义集合 | 点击文件名即可复制</p>
+            <div class="stats">
+                <div class="stat-item"><div class="stat-number">126</div><div class="stat-label">角色总数</div></div>
+                <div class="stat-item"><div class="stat-number">12</div><div class="stat-label">专业类别</div></div>
+            </div>
+        </header>
+        <div class="search-box"><input type="text" id="searchInput" placeholder="🔍 搜索角色名称或擅长领域..."></div>
+        <nav class="category-nav">
+            <a href="#engineering">🚀 Engineering</a>
+            <a href="#design">🎨 Design</a>
+            <a href="#marketing-cn">📱 中国市场</a>
+            <a href="#marketing-global">🌏 海外市场</a>
+            <a href="#paid-media">💰 Paid Media</a>
+            <a href="#product">📦 Product</a>
+            <a href="#project">📋 项目管理</a>
+            <a href="#sales">💼 Sales</a>
+            <a href="#testing">🧪 Testing</a>
+            <a href="#game">🎮 游戏开发</a>
+            <a href="#spatial">🌌 空间计算</a>
+            <a href="#support">🏢 Support</a>
+            <a href="#specialized">🔧 专业类</a>
+        </nav>
+
+        <section class="category" id="engineering">
+            <h2 class="category-title"><span class="icon">🚀</span> Engineering 工程类</h2>
+            <div class="table-wrapper">
+                <table><thead><tr><th style="width:20%">角色名称</th><th style="width:25%">文件名（点击复制）</th><th style="width:55%">擅长领域</th></tr></thead><tbody>
+                    <tr><td class="role-name">前端开发者</td><td><span class="filename" onclick="copyText(this)">engineering-frontend-developer</span></td><td class="skills">React/Vue/Angular、UI实现、性能优化、组件架构</td></tr>
+                    <tr><td class="role-name">后端架构师</td><td><span class="filename" onclick="copyText(this)">engineering-backend-architect</span></td><td class="skills">API设计、数据库架构、分布式系统、高可用服务</td></tr>
+                    <tr><td class="role-name">软件架构师</td><td><span class="filename" onclick="copyText(this)">engineering-software-architect</span></td><td class="skills">系统设计、DDD、架构模式、技术决策</td></tr>
+                    <tr><td class="role-name">高级开发者</td><td><span class="filename" onclick="copyText(this)">engineering-senior-developer</span></td><td class="skills">Laravel/Livewire/FluxUI、高端CSS、Three.js</td></tr>
+                    <tr><td class="role-name">AI工程师</td><td><span class="filename" onclick="copyText(this)">engineering-ai-engineer</span></td><td class="skills">机器学习、模型部署、数据处理、AI系统构建</td></tr>
+                    <tr><td class="role-name">数据工程师</td><td><span class="filename" onclick="copyText(this)">engineering-data-engineer</span></td><td class="skills">ETL/ELT、Spark、dbt、流处理、云数据平台</td></tr>
+                    <tr><td class="role-name">数据库优化师</td><td><span class="filename" onclick="copyText(this)">engineering-database-optimizer</span></td><td class="skills">Schema设计、查询优化、索引策略、PostgreSQL/MySQL</td></tr>
+                    <tr><td class="role-name">DevOps自动化师</td><td><span class="filename" onclick="copyText(this)">engineering-devops-automator</span></td><td class="skills">CI/CD流水线、云基础设施、自动化运维</td></tr>
+                    <tr><td class="role-name">SRE</td><td><span class="filename" onclick="copyText(this)">engineering-sre</span></td><td class="skills">SLO、可观测性、混沌工程、生产系统稳定性</td></tr>
+                    <tr><td class="role-name">安全工程师</td><td><span class="filename" onclick="copyText(this)">engineering-security-engineer</span></td><td class="skills">威胁建模、代码审计、安全架构</td></tr>
+                    <tr><td class="role-name">嵌入式固件工程师</td><td><span class="filename" onclick="copyText(this)">engineering-embedded-firmware-engineer</span></td><td class="skills">ESP32、RTOS、ARM Cortex-M、STM32</td></tr>
+                    <tr><td class="role-name">移动应用开发者</td><td><span class="filename" onclick="copyText(this)">engineering-mobile-app-builder</span></td><td class="skills">iOS/Android原生开发、跨平台框架、性能优化</td></tr>
+                    <tr><td class="role-name">微信小程序开发者</td><td><span class="filename" onclick="copyText(this)">engineering-wechat-mini-program-developer</span></td><td class="skills">WXML/WXSS、微信API、支付集成、云开发</td></tr>
+                    <tr><td class="role-name">飞书集成开发者</td><td><span class="filename" onclick="copyText(this)">engineering-feishu-integration-developer</span></td><td class="skills">飞书机器人、小程序、审批流、多维表格、Webhook</td></tr>
+                    <tr><td class="role-name">Git工作流大师</td><td><span class="filename" onclick="copyText(this)">engineering-git-workflow-master</span></td><td class="skills">分支策略、版本控制、约定式提交</td></tr>
+                    <tr><td class="role-name">代码审查员</td><td><span class="filename" onclick="copyText(this)">engineering-code-reviewer</span></td><td class="skills">代码审查、可维护性、安全性、性能</td></tr>
+                    <tr><td class="role-name">技术文档工程师</td><td><span class="filename" onclick="copyText(this)">engineering-technical-writer</span></td><td class="skills">开发者文档、API参考、README、教程</td></tr>
+                    <tr><td class="role-name">快速原型师</td><td><span class="filename" onclick="copyText(this)">engineering-rapid-prototyper</span></td><td class="skills">MVP构建、全栈开发、快速验证</td></tr>
+                    <tr><td class="role-name">威胁检测工程师</td><td><span class="filename" onclick="copyText(this)">engineering-threat-detection-engineer</span></td><td class="skills">SIEM、MITRE ATT&CK、威胁狩猎、告警调优</td></tr>
+                    <tr><td class="role-name">故障响应指挥官</td><td><span class="filename" onclick="copyText(this)">engineering-incident-response-commander</span></td><td class="skills">故障管理、SLO/SLI、on-call流程、事后复盘</td></tr>
+                    <tr><td class="role-name">Solidity智能合约工程师</td><td><span class="filename" onclick="copyText(this)">engineering-solidity-smart-contract-engineer</span></td><td class="skills">EVM、Gas优化、DeFi合约、安全优先设计</td></tr>
+                    <tr><td class="role-name">AI数据修复工程师</td><td><span class="filename" onclick="copyText(this)">engineering-ai-data-remediation-engineer</span></td><td class="skills">数据管道修复、异常检测、语义聚类</td></tr>
+                    <tr><td class="role-name">自主优化架构师</td><td><span class="filename" onclick="copyText(this)">engineering-autonomous-optimization-architect</span></td><td class="skills">影子测试、性能优化、财务/安全护栏</td></tr>
+                </tbody></table>
+            </div>
+        </section>
+
+        <section class="category" id="design">
+            <h2 class="category-title"><span class="icon">🎨</span> Design 设计类</h2>
+            <div class="table-wrapper">
+                <table><thead><tr><th style="width:20%">角色名称</th><th style="width:25%">文件名（点击复制）</th><th style="width:55%">擅长领域</th></tr></thead><tbody>
+                    <tr><td class="role-name">UI设计师</td><td><span class="filename" onclick="copyText(this)">design-ui-designer</span></td><td class="skills">视觉设计、组件库、界面设计体系</td></tr>
+                    <tr><td class="role-name">UX研究员</td><td><span class="filename" onclick="copyText(this)">design-ux-researcher</span></td><td class="skills">用户研究、可用性测试、数据驱动设计</td></tr>
+                    <tr><td class="role-name">UX架构师</td><td><span class="filename" onclick="copyText(this)">design-ux-architect</span></td><td class="skills">CSS体系、布局框架、实现指引</td></tr>
+                    <tr><td class="role-name">品牌守护</td><td><span class="filename" onclick="copyText(this)">design-brand-guardian</span></td><td class="skills">品牌一致性、视觉规范、形象统一</td></tr>
+                    <tr><td class="role-name">图像提示词工程师</td><td><span class="filename" onclick="copyText(this)">design-image-prompt-engineer</span></td><td class="skills">AI图像生成、摄影美学、视觉概念转化</td></tr>
+                    <tr><td class="role-name">视觉叙事师</td><td><span class="filename" onclick="copyText(this)">design-visual-storyteller</span></td><td class="skills">视觉传达、多媒体内容、品牌叙事</td></tr>
+                    <tr><td class="role-name">包容性视觉专家</td><td><span class="filename" onclick="copyText(this)">design-inclusive-visuals-specialist</span></td><td class="skills">消除AI偏见、文化多样性、图像公平性</td></tr>
+                    <tr><td class="role-name">趣味注入师</td><td><span class="filename" onclick="copyText(this)">design-whimsy-injector</span></td><td class="skills">创意设计、用户体验惊喜、品牌个性化</td></tr>
+                </tbody></table>
+            </div>
+        </section>
+
+        <section class="category" id="marketing-cn">
+            <h2 class="category-title"><span class="icon">📱</span> Marketing 中国市场</h2>
+            <div class="table-wrapper">
+                <table><thead><tr><th style="width:20%">角色名称</th><th style="width:25%">文件名（点击复制）</th><th style="width:55%">擅长领域</th></tr></thead><tbody>
+                    <tr><td class="role-name">抖音策略师</td><td><span class="filename" onclick="copyText(this)">marketing-douyin-strategist</span></td><td class="skills">短视频营销、算法推荐、直播带货、内容矩阵</td></tr>
+                    <tr><td class="role-name">小红书专家</td><td><span class="filename" onclick="copyText(this)">marketing-xiaohongshu-specialist</span></td><td class="skills">生活方式内容、趋势策略、社区互动、病毒增长</td></tr>
+                    <tr><td class="role-name">小红书运营专家</td><td><span class="filename" onclick="copyText(this)">marketing-xiaohongshu-operator</span></td><td class="skills">种草笔记、达人合作、爆款公式、数据驱动</td></tr>
+                    <tr><td class="role-name">微信运营专家</td><td><span class="filename" onclick="copyText(this)">marketing-wechat-operator</span></td><td class="skills">公众号内容、社群运营、私域流量、裂变增长</td></tr>
+                    <tr><td class="role-name">微信公众号管</td><td><span class="filename" onclick="copyText(this)">marketing-wechat-official-account</span></td><td class="skills">内容营销、用户互动、转化优化、私域阵地</td></tr>
+                    <tr><td class="role-name">微博运营策略</td><td><span class="filename" onclick="copyText(this)">marketing-weibo-strategist</span></td><td class="skills">热搜机制、超话运营、舆情管理、粉丝经济</td></tr>
+                    <tr><td class="role-name">快手策略师</td><td><span class="filename" onclick="copyText(this)">marketing-kuaishou-strategist</span></td><td class="skills">下沉市场、老铁社区、直播电商、私域信任</td></tr>
+                    <tr><td class="role-name">B站内容策略师</td><td><span class="filename" onclick="copyText(this)">marketing-bilibili-strategist</span></td><td class="skills">中长视频、UP主运营、弹幕文化、社区生态</td></tr>
+                    <tr><td class="role-name">百度SEO专家</td><td><span class="filename" onclick="copyText(this)">marketing-baidu-seo-specialist</span></td><td class="skills">百度算法、SEO优化、中文关键词、备案规范</td></tr>
+                    <tr><td class="role-name">中国电商运营专家</td><td><span class="filename" onclick="copyText(this)">marketing-china-ecommerce-operator</span></td><td class="skills">淘宝/天猫/拼多多/京东、直播带货、大促策划</td></tr>
+                    <tr><td class="role-name">电商运营</td><td><span class="filename" onclick="copyText(this)">marketing-ecommerce-operator</span></td><td class="skills">店铺运营、商品优化、跨平台策略</td></tr>
+                    <tr><td class="role-name">私域流量运营</td><td><span class="filename" onclick="copyText(this)">marketing-private-domain-operator</span></td><td class="skills">企微SCRM、社群运营、用户生命周期管理</td></tr>
+                    <tr><td class="role-name">直播电商主播教练</td><td><span class="filename" onclick="copyText(this)">marketing-livestream-commerce-coach</span></td><td class="skills">直播话术、选品策略、流量配比、转化逼单</td></tr>
+                    <tr><td class="role-name">跨境电商运营专家</td><td><span class="filename" onclick="copyText(this)">marketing-cross-border-ecommerce</span></td><td class="skills">Amazon/Shopee/Lazada、物流海外仓、DTC独立站</td></tr>
+                    <tr><td class="role-name">增长黑客</td><td><span class="filename" onclick="copyText(this)">marketing-growth-hacker</span></td><td class="skills">数据驱动获客、A/B测试、低成本高回报实验</td></tr>
+                    <tr><td class="role-name">内容创作</td><td><span class="filename" onclick="copyText(this)">marketing-content-creator</span></td><td class="skills">多平台内容策划、故事营销、内容价值</td></tr>
+                </tbody></table>
+            </div>
+        </section>
+
+        <section class="category" id="marketing-global">
+            <h2 class="category-title"><span class="icon">🌏</span> Marketing 海外市场</h2>
+            <div class="table-wrapper">
+                <table><thead><tr><th style="width:20%">角色名称</th><th style="width:25%">文件名（点击复制）</th><th style="width:55%">擅长领域</th></tr></thead><tbody>
+                    <tr><td class="role-name">SEO专家</td><td><span class="filename" onclick="copyText(this)">marketing-seo-specialist</span></td><td class="skills">技术SEO、内容优化、外链建设、自然搜索增长</td></tr>
+                    <tr><td class="role-name">TikTok策略师</td><td><span class="filename" onclick="copyText(this)">marketing-tiktok-strategist</span></td><td class="skills">病毒内容、算法优化、社区运营</td></tr>
+                    <tr><td class="role-name">Instagram策展</td><td><span class="filename" onclick="copyText(this)">marketing-instagram-curator</span></td><td class="skills">视觉叙事、社区运营、多格式内容优化</td></tr>
+                    <tr><td class="role-name">Twitter互动</td><td><span class="filename" onclick="copyText(this)">marketing-twitter-engager</span></td><td class="skills">实时互动、思想领袖、社区驱动增长</td></tr>
+                    <tr><td class="role-name">LinkedIn内容创作专家</td><td><span class="filename" onclick="copyText(this)">marketing-linkedin-content-creator</span></td><td class="skills">个人品牌、专业内容、职场人脉</td></tr>
+                    <tr><td class="role-name">Reddit社区运营</td><td><span class="filename" onclick="copyText(this)">marketing-reddit-community-builder</span></td><td class="skills">社区文化、价值输出、品牌口碑</td></tr>
+                    <tr><td class="role-name">社交媒体策略师</td><td><span class="filename" onclick="copyText(this)">marketing-social-media-strategist</span></td><td class="skills">跨平台策略、品牌建设、社区运营</td></tr>
+                    <tr><td class="role-name">应用商店优化师</td><td><span class="filename" onclick="copyText(this)">marketing-app-store-optimizer</span></td><td class="skills">ASO、转化率提升、应用曝光</td></tr>
+                    <tr><td class="role-name">图书联合作者</td><td><span class="filename" onclick="copyText(this)">marketing-book-co-author</span></td><td class="skills">思想领袖图书、语音笔记、结构化章节</td></tr>
+                    <tr><td class="role-name">播客内容策略师</td><td><span class="filename" onclick="copyText(this)">marketing-podcast-strategist</span></td><td class="skills">播客定位、音频制作、听众增长、商业变现</td></tr>
+                    <tr><td class="role-name">短视频剪辑指导师</td><td><span class="filename" onclick="copyText(this)">marketing-short-video-editing-coach</span></td><td class="skills">Pr/CapCut/DaVinci/Final Cut、调色、特效</td></tr>
+                </tbody></table>
+            </div>
+        </section>
+
+        <section class="category" id="paid-media">
+            <h2 class="category-title"><span class="icon">💰</span> Paid Media 付费媒体</h2>
+            <div class="table-wrapper">
+                <table><thead><tr><th style="width:20%">角色名称</th><th style="width:25%">文件名（点击复制）</th><th style="width:55%">擅长领域</th></tr></thead><tbody>
+                    <tr><td class="role-name">PPC竞价策略师</td><td><span class="filename" onclick="copyText(this)">paid-media-ppc-strategist</span></td><td class="skills">Google Ads、Microsoft Ads、Amazon Ads</td></tr>
+                    <tr><td class="role-name">社交广告策略师</td><td><span class="filename" onclick="copyText(this)">paid-media-paid-social-strategist</span></td><td class="skills">Meta、LinkedIn、TikTok、Pinterest</td></tr>
+                    <tr><td class="role-name">程序化广告采买专家</td><td><span class="filename" onclick="copyText(this)">paid-media-programmatic-buyer</span></td><td class="skills">DV360、The Trade Desk、DSP、ABM</td></tr>
+                    <tr><td class="role-name">付费媒体审计师</td><td><span class="filename" onclick="copyText(this)">paid-media-auditor</span></td><td class="skills">广告账户审计、200+检查点、竞争定位</td></tr>
+                    <tr><td class="role-name">搜索词分析师</td><td><span class="filename" onclick="copyText(this)">paid-media-search-query-analyst</span></td><td class="skills">否定关键词、查询意图、流量优化</td></tr>
+                    <tr><td class="role-name">追踪与归因专家</td><td><span class="filename" onclick="copyText(this)">paid-media-tracking-specialist</span></td><td class="skills">GTM、GA4、Meta CAPI、服务端追踪</td></tr>
+                    <tr><td class="role-name">广告创意策略师</td><td><span class="filename" onclick="copyText(this)">paid-media-creative-strategist</span></td><td class="skills">RSA优化、素材组设计、创意测试</td></tr>
+                </tbody></table>
+            </div>
+        </section>
+
+        <section class="category" id="product">
+            <h2 class="category-title"><span class="icon">📦</span> Product 产品类</h2>
+            <div class="table-wrapper">
+                <table><thead><tr><th style="width:20%">角色名称</th><th style="width:25%">文件名（点击复制）</th><th style="width:55%">擅长领域</th></tr></thead><tbody>
+                    <tr><td class="role-name">产品经理</td><td><span class="filename" onclick="copyText(this)">product-manager</span></td><td class="skills">需求发现、战略规划、路线图、GTM</td></tr>
+                    <tr><td class="role-name">Sprint排序师</td><td><span class="filename" onclick="copyText(this)">product-sprint-prioritizer</span></td><td class="skills">需求优先级、Sprint规划、数据驱动</td></tr>
+                    <tr><td class="role-name">行为助推引擎</td><td><span class="filename" onclick="copyText(this)">product-behavioral-nudge-engine</span></td><td class="skills">行为心理学、用户动力、交互设计</td></tr>
+                    <tr><td class="role-name">反馈分析师</td><td><span class="filename" onclick="copyText(this)">product-feedback-synthesizer</span></td><td class="skills">用户反馈、洞察提炼、需求分析</td></tr>
+                    <tr><td class="role-name">趋势研究员</td><td><span class="filename" onclick="copyText(this)">product-trend-researcher</span></td><td class="skills">行业趋势、技术前瞻、市场方向</td></tr>
+                </tbody></table>
+            </div>
+        </section>
+
+        <section class="category" id="project">
+            <h2 class="category-title"><span class="icon">📋</span> Project Management 项目管理</h2>
+            <div class="table-wrapper">
+                <table><thead><tr><th style="width:20%">角色名称</th><th style="width:25%">文件名（点击复制）</th><th style="width:55%">擅长领域</th></tr></thead><tbody>
+                    <tr><td class="role-name">高级项目经理</td><td><span class="filename" onclick="copyText(this)">project-manager-senior</span></td><td class="skills">需求还原、范围控制、任务拆解</td></tr>
+                    <tr><td class="role-name">项目牧羊人</td><td><span class="filename" onclick="copyText(this)">project-management-project-shepherd</span></td><td class="skills">跨部门协调、时间线管理、利益方对齐</td></tr>
+                    <tr><td class="role-name">工作室制片人</td><td><span class="filename" onclick="copyText(this)">project-management-studio-producer</span></td><td class="skills">战略领导、资源分配、多项目组合管理</td></tr>
+                    <tr><td class="role-name">工作室运营</td><td><span class="filename" onclick="copyText(this)">project-management-studio-operations</span></td><td class="skills">日常效率、流程优化、资源协调</td></tr>
+                    <tr><td class="role-name">Jira工作流管家</td><td><span class="filename" onclick="copyText(this)">project-management-jira-workflow-steward</span></td><td class="skills">Git工作流、提交追溯、PR规范</td></tr>
+                    <tr><td class="role-name">实验追踪</td><td><span class="filename" onclick="copyText(this)">project-management-experiment-tracker</span></td><td class="skills">A/B测试、实验设计、数据驱动决策</td></tr>
+                </tbody></table>
+            </div>
+        </section>
+
+        <section class="category" id="sales">
+            <h2 class="category-title"><span class="icon">💼</span> Sales 销售类</h2>
+            <div class="table-wrapper">
+                <table><thead><tr><th style="width:20%">角色名称</th><th style="width:25%">文件名（点击复制）</th><th style="width:55%">擅长领域</th></tr></thead><tbody>
+                    <tr><td class="role-name">售前工程师</td><td><span class="filename" onclick="copyText(this)">sales-engineer</span></td><td class="skills">技术Discovery、Demo设计、POC、竞争定位</td></tr>
+                    <tr><td class="role-name">Discovery教练</td><td><span class="filename" onclick="copyText(this)">sales-discovery-coach</span></td><td class="skills">问题设计、现状诊断、购买动机挖掘</td></tr>
+                    <tr><td class="role-name">销售教练</td><td><span class="filename" onclick="copyText(this)">sales-coach</span></td><td class="skills">Pipeline Review、通话辅导、Forecast准确度</td></tr>
+                    <tr><td class="role-name">Outbound策略师</td><td><span class="filename" onclick="copyText(this)">sales-outbound-strategist</span></td><td class="skills">多渠道触达、ICP定制、个性化开发</td></tr>
+                    <tr><td class="role-name">Pipeline分析师</td><td><span class="filename" onclick="copyText(this)">sales-pipeline-analyst</span></td><td class="skills">健康诊断、单子速度、Forecast准确度</td></tr>
+                    <tr><td class="role-name">赢单策略师</td><td><span class="filename" onclick="copyText(this)">sales-deal-strategist</span></td><td class="skills">MEDDPICC、竞争定位、赢单规划</td></tr>
+                    <tr><td class="role-name">投标策略师</td><td><span class="filename" onclick="copyText(this)">sales-proposal-strategist</span></td><td class="skills">RFP转化、赢标主题、竞争定位</td></tr>
+                    <tr><td class="role-name">客户拓展策略师</td><td><span class="filename" onclick="copyText(this)">sales-account-strategist</span></td><td class="skills">Land-and-Expand、QBR、净收入留存</td></tr>
+                </tbody></table>
+            </div>
+        </section>
+
+        <section class="category" id="testing">
+            <h2 class="category-title"><span class="icon">🧪</span> Testing 测试类</h2>
+            <div class="table-wrapper">
+                <table><thead><tr><th style="width:20%">角色名称</th><th style="width:25%">文件名（点击复制）</th><th style="width:55%">擅长领域</th></tr></thead><tbody>
+                    <tr><td class="role-name">API测试员</td><td><span class="filename" onclick="copyText(this)">testing-api-tester</span></td><td class="skills">接口测试、契约验证、文档准确</td></tr>
+                    <tr><td class="role-name">性能基准师</td><td><span class="filename" onclick="copyText(this)">testing-performance-benchmarker</span></td><td class="skills">性能测试、容量规划、瓶颈分析</td></tr>
+                    <tr><td class="role-name">无障碍审核员</td><td><span class="filename" onclick="copyText(this)">testing-accessibility-auditor</span></td><td class="skills">WCAG、辅助技术测试、可访问性</td></tr>
+                    <tr><td class="role-name">现实检验员</td><td><span class="filename" onclick="copyText(this)">testing-reality-checker</span></td><td class="skills">真实用户视角，质量守门、边缘问题</td></tr>
+                    <tr><td class="role-name">工作流优化师</td><td><span class="filename" onclick="copyText(this)">testing-workflow-optimizer</span></td><td class="skills">流程分析、瓶颈消除、效率提升</td></tr>
+                    <tr><td class="role-name">工具评估师</td><td><span class="filename" onclick="copyText(this)">testing-tool-evaluator</span></td><td class="skills">功能对比、性能测试、成本分析</td></tr>
+                    <tr><td class="role-name">证据收集员</td><td><span class="filename" onclick="copyText(this)">testing-evidence-collector</span></td><td class="skills">测试证据链，质量报告、可追溯性</td></tr>
+                    <tr><td class="role-name">测试结果分析师</td><td><span class="filename" onclick="copyText(this)">testing-test-results-analyzer</span></td><td class="skills">测试评估、质量度量、数据洞察</td></tr>
+                </tbody></table>
+            </div>
+        </section>
+
+        <section class="category" id="game">
+            <h2 class="category-title"><span class="icon">🎮</span> Game Development 游戏开发</h2>
+            <div class="table-wrapper">
+                <table><thead><tr><th style="width:20%">角色名称</th><th style="width:25%">文件名（点击复制）</th><th style="width:55%">擅长领域</th></tr></thead><tbody>
+                    <tr><td class="role-name">游戏设计师</td><td><span class="filename" onclick="copyText(this)">game-designer</span></td><td class="skills">GDD编写、玩家心理学、经济平衡</td></tr>
+                    <tr><td class="role-name">关卡设计师</td><td><span class="filename" onclick="copyText(this)">level-designer</span></td><td class="skills">空间叙事、节奏流程、遭遇战设计</td></tr>
+                    <tr><td class="role-name">叙事设计师</td><td><span class="filename" onclick="copyText(this)">narrative-designer</span></td><td class="skills">分支对话、世界观架构、环境叙事</td></tr>
+                    <tr><td class="role-name">技术艺术家</td><td><span class="filename" onclick="copyText(this)">technical-artist</span></td><td class="skills">Shader、VFX、LOD、性能预算</td></tr>
+                    <tr><td class="role-name">游戏音频工程师</td><td><span class="filename" onclick="copyText(this)">game-audio-engineer</span></td><td class="skills">FMOD/Wwise、空间音频、自适应音乐</td></tr>
+                </tbody></table>
+            </div>
+        </section>
+
+        <section class="category" id="spatial">
+            <h2 class="category-title"><span class="icon">🌌</span> Spatial Computing 空间计算</h2>
+            <div class="table-wrapper">
+                <table><thead><tr><th style="width:20%">角色名称</th><th style="width:25%">文件名（点击复制）</th><th style="width:55%">擅长领域</th></tr></thead><tbody>
+                    <tr><td class="role-name">visionOS空间工程师</td><td><span class="filename" onclick="copyText(this)">visionos-spatial-engineer</span></td><td class="skills">SwiftUI体积界面、Liquid Glass设计</td></tr>
+                    <tr><td class="role-name">macOS Metal空间工程师</td><td><span class="filename" onclick="copyText(this)">macos-spatial-metal-engineer</span></td><td class="skills">Metal 3D渲染、空间计算体验</td></tr>
+                    <tr><td class="role-name">XR沉浸式开发者</td><td><span class="filename" onclick="copyText(this)">xr-immersive-developer</span></td><td class="skills">WebXR、AR/VR/XR应用</td></tr>
+                    <tr><td class="role-name">XR界面架构师</td><td><span class="filename" onclick="copyText(this)">xr-interface-architect</span></td><td class="skills">空间交互设计、沉浸式界面策略</td></tr>
+                    <tr><td class="role-name">XR座舱交互专家</td><td><span class="filename" onclick="copyText(this)">xr-cockpit-interaction-specialist</span></td><td class="skills">XR座舱控制、沉浸式系统</td></tr>
+                    <tr><td class="role-name">终端集成专家</td><td><span class="filename" onclick="copyText(this)">terminal-integration-specialist</span></td><td class="skills">终端模拟、SwiftTerm集成</td></tr>
+                </tbody></table>
+            </div>
+        </section>
+
+        <section class="category" id="support">
+            <h2 class="category-title"><span class="icon">🏢</span> Support 支持类</h2>
+            <div class="table-wrapper">
+                <table><thead><tr><th style="width:20%">角色名称</th><th style="width:25%">文件名（点击复制）</th><th style="width:55%">擅长领域</th></tr></thead><tbody>
+                    <tr><td class="role-name">客服响应</td><td><span class="filename" onclick="copyText(this)">support-support-responder</span></td><td class="skills">问题诊断、用户安抚、推动解决</td></tr>
+                    <tr><td class="role-name">基础设施运维</td><td><span class="filename" onclick="copyText(this)">support-infrastructure-maintainer</span></td><td class="skills">系统可靠性、性能优化、技术运营</td></tr>
+                    <tr><td class="role-name">财务追踪</td><td><span class="filename" onclick="copyText(this)">support-finance-tracker</span></td><td class="skills">财务规划、预算管理、经营分析</td></tr>
+                    <tr><td class="role-name">数据分析师</td><td><span class="filename" onclick="copyText(this)">support-analytics-reporter</span></td><td class="skills">数据洞察、业务分析、决策建议</td></tr>
+                    <tr><td class="role-name">法务合规</td><td><span class="filename" onclick="copyText(this)">support-legal-compliance-checker</span></td><td class="skills">产品合规、数据隐私、法律框架</td></tr>
+                    <tr><td class="role-name">招聘运营专家</td><td><span class="filename" onclick="copyText(this)">support-recruitment-specialist</span></td><td class="skills">招聘渠道、人才评估、雇主品牌</td></tr>
+                    <tr><td class="role-name">供应链策略师</td><td><span class="filename" onclick="copyText(this)">support-supply-chain-strategist</span></td><td class="skills">供应商管理、战略采购、质量管控</td></tr>
+                    <tr><td class="role-name">高管摘要</td><td><span class="filename" onclick="copyText(this)">support-executive-summary-generator</span></td><td class="skills">SCQA框架、高管汇报、战略摘要</td></tr>
+                </tbody></table>
+            </div>
+        </section>
+
+        <section class="category" id="specialized">
+            <h2 class="category-title"><span class="icon">🔧</span> Specialized 专业类</h2>
+            <div class="table-wrapper">
+                <table><thead><tr><th style="width:20%">角色名称</th><th style="width:25%">文件名（点击复制）</th><th style="width:55%">擅长领域</th></tr></thead><tbody>
+                    <tr><td class="role-name">提示词工程师</td><td><span class="filename" onclick="copyText(this)">prompt-engineer</span></td><td class="skills">LLM提示词、思维链、少样本学习</td></tr>
+                    <tr><td class="role-name">智能体编排</td><td><span class="filename" onclick="copyText(this)">agents-orchestrator</span></td><td class="skills">多智能体协调、任务分解、流程编排</td></tr>
+                    <tr><td class="role-name">MCP构建师</td><td><span class="filename" onclick="copyText(this)">specialized-mcp-builder</span></td><td class="skills">Model Context Protocol、工具扩展</td></tr>
+                    <tr><td class="role-name">工作流架构师</td><td><span class="filename" onclick="copyText(this)">specialized-workflow-architect</span></td><td class="skills">工作流设计、系统规格、交接契约</td></tr>
+                    <tr><td class="role-name">自动化治理架构师</td><td><span class="filename" onclick="copyText(this)">automation-governance-architect</span></td><td class="skills">业务自动化、价值审计、风险评估</td></tr>
+                    <tr><td class="role-name">开发者布道师</td><td><span class="filename" onclick="copyText(this)">specialized-developer-advocate</span></td><td class="skills">社区构建、技术内容、开发者体验</td></tr>
+                    <tr><td class="role-name">文档生成师</td><td><span class="filename" onclick="copyText(this)">specialized-document-generator</span></td><td class="skills">PDF/PPTX/DOCX生成、图表可视化</td></tr>
+                    <tr><td class="role-name">模型QA专家</td><td><span class="filename" onclick="copyText(this)">specialized-model-qa</span></td><td class="skills">ML模型审计、可解释性、性能监控</td></tr>
+                    <tr><td class="role-name">区块链安全审计师</td><td><span class="filename" onclick="copyText(this)">blockchain-security-auditor</span></td><td class="skills">智能合约漏洞、形式化验证</td></tr>
+                    <tr><td class="role-name">合规审计师</td><td><span class="filename" onclick="copyText(this)">compliance-auditor</span></td><td class="skills">SOC 2、ISO 27001、HIPAA</td></tr>
+                    <tr><td class="role-name">ZK管家</td><td><span class="filename" onclick="copyText(this)">zk-steward</span></td><td class="skills">卡片盒笔记法、知识库、原子笔记</td></tr>
+                    <tr><td class="role-name">留学规划顾问</td><td><span class="filename" onclick="copyText(this)">study-abroad-advisor</span></td><td class="skills">本/硕/博申请、选校定位、背景提升</td></tr>
+                    <tr><td class="role-name">文化智能策略师</td><td><span class="filename" onclick="copyText(this)">specialized-cultural-intelligence-strategist</span></td><td class="skills">CQ、跨文化、软件本地化</td></tr>
+                    <tr><td class="role-name">企业培训课程设计师</td><td><span class="filename" onclick="copyText(this)">corporate-training-designer</span></td><td class="skills">培训体系、教学设计、领导力发展</td></tr>
+                    <tr><td class="role-name">政务数字化售前顾问</td><td><span class="filename" onclick="copyText(this)">government-digital-presales-consultant</span></td><td class="skills">政策解读、方案设计、标书编写</td></tr>
+                    <tr><td class="role-name">医疗健康营销合规</td><td><span class="filename" onclick="copyText(this)">healthcare-marketing-compliance</span></td><td class="skills">广告法、药品管理法、患者隐私</td></tr>
+                    <tr><td class="role-name">身份信任架构师</td><td><span class="filename" onclick="copyText(this)">agentic-identity-trust</span></td><td class="skills">AI身份认证、信任验证</td></tr>
+                    <tr><td class="role-name">身份图谱操作员</td><td><span class="filename" onclick="copyText(this)">identity-graph-operator</span></td><td class="skills">多智能体身份图谱、实体一致性</td></tr>
+                    <tr><td class="role-name">应付账款智能体</td><td><span class="filename" onclick="copyText(this)">accounts-payable-agent</span></td><td class="skills">供应商付款、加密货币、法币处理</td></tr>
+                    <tr><td class="role-name">销售数据提取师</td><td><span class="filename" onclick="copyText(this)">sales-data-extraction-agent</span></td><td class="skills">Excel监控、销售指标提取</td></tr>
+                    <tr><td class="role-name">数据整合智能体</td><td><span class="filename" onclick="copyText(this)">data-consolidation-agent</span></td><td class="skills">销售数据整合、实时仪表盘</td></tr>
+                    <tr><td class="role-name">报告分发智能体</td><td><span class="filename" onclick="copyText(this)">report-distribution-agent</span></td><td class="skills">区域报告分发、定时触发</td></tr>
+                    <tr><td class="role-name">LSP索引工程师</td><td><span class="filename" onclick="copyText(this)">lsp-index-engineer</span></td><td class="skills">LSP客户端、语义索引、代码智能</td></tr>
+                </tbody></table>
+            </div>
+        </section>
+
+        <footer>
+            <p>数据来源: <a href="https://github.com/jnMetaCode/agency-agents-zh" target="_blank">github.com/jnMetaCode/agency-agents-zh</a></p>
+        </footer>
+    </div>
+
+    <div class="toast" id="toast">✅ 已复制到剪贴板</div>
+
+    <script>
+        function copyText(element) {
+            const text = element.textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                element.classList.add('copied');
+                const toast = document.getElementById('toast');
+                toast.classList.add('show');
+                setTimeout(() => {
+                    element.classList.remove('copied');
+                    toast.classList.remove('show');
+                }, 1500);
+            });
+        }
+
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const searchText = e.target.value.toLowerCase();
+            document.querySelectorAll('.category').forEach(section => {
+                let hasMatch = false;
+                section.querySelectorAll('tr').forEach(row => {
+                    const text = row.textContent.toLowerCase();
+                    if (text.includes(searchText)) {
+                        row.style.display = '';
+                        hasMatch = true;
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+                section.style.display = hasMatch ? '' : 'none';
+            });
+        });
+    </script>
+</body>
+</html>
